@@ -1,0 +1,59 @@
+﻿@using JavierSanchezProyectoCore.ViewModels
+@model DetailsClienteViewModel
+
+<div class="container row text-left">
+    <h3 class="col-md-6">@Model.Cliente.Nickname</h3>
+
+</div>
+<br />
+@{
+
+    <div class="container row text-left">
+      
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Cliente.ClienteId">Actualizar Datos</a>
+            <a class="btn btn-light text-dark" asp-action="Index" asp-controller="Juego"  asp-route-id="@Model.Cliente.ClienteId">Tienda</a>
+    </div>
+    if (Model.Ventas.Count() < 1)
+    {
+        <p>No has realizado ninguna Compra  </p>
+    }
+    else
+    {
+        <h4>Juegos Comprados por @Model.Cliente.Nickname</h4>
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    
+                    <th>Titulo</th>
+                    <th>Fecha de Compra</th>
+                    <th>Precio</th>
+                    <th>Caratula</th>
+                    <th>Key</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (DetalleVenta venta in Model.Ventas)
+                {
+                    <tr>
+                        <td>@venta.Juego.Titulo</td>
+                        
+                        <td>@venta.Venta.FechaVenta.ToShortDateString()</td>
+                        <td>@venta.Precio</td>
+                        <td><img src="~/images/@venta.Juego.Caratula" width="100" /></td>
+                        <td>@venta.Key</td>
+                        <td>
+                            <a class="btn btn-info" asp-action="Details" asp-controller="Juego" asp-route-id="@venta.Juego.JuegoId" asp-route-disabled=true>Detalles</a>
+                            
+                        </td>
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+
+}

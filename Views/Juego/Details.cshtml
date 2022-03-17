@@ -1,0 +1,76 @@
+﻿@using JavierSanchezProyectoCore.Models
+@model Juego
+
+<div class="container w-100 row">
+    <div class="col-md-8">
+
+
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@Model.TrailerURL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <h2>@Model.Titulo</h2>
+        <p class="text-left">@Model.Descripcion</p>
+    </div>
+    <div class="col-md-4">
+        @if (Model.Descuento != 0)
+        {
+
+            <span class="bg-danger  w-25 position-absolute">- @Model.Descuento %</span>
+        }
+        <img src="~/images/@Model.Caratula" class="img-fluid" />
+        
+            <div class="col-md-6">
+                <h4>@Model.Desarrolladora.Nombre</h4>
+            </div>
+            <div class="col-md-6  text-center">
+                <a  asp-host="@Model.Desarrolladora.Pagina" asp-action="" asp-controller=""><img src="~/images/@Model.Desarrolladora.Logo" width="100" /></a>
+            </div>
+        
+
+
+        <p>
+            Generos:
+            @foreach (GeneroJuego item in Model.GenerosJuego)
+            {
+                @if (item != Model.GenerosJuego.Last())
+                {
+                    @item.Genero.Nombre @:,
+                }
+                else
+                {
+                    @item.Genero.Nombre
+                }
+
+            }
+        </p>
+        <p>@Model.Salida.ToShortDateString()</p>
+        @if (Model.Descuento != 0)
+        {
+            <p> Descuento : @Model.Descuento %</p>
+            <p> Precio : @Model.Precio €</p>
+            <p>
+                Precio Final:
+                @{
+                    decimal? preciofinal = Model.Precio - (Model.Precio * Model.Descuento / 100);
+
+                }
+                @preciofinal.Value.ToString("0.00") €
+            </p>
+        }
+        else
+        {
+            <p> Precio : @Model.Precio €</p>
+        }
+
+        @if (ViewBag.Disabled)
+        {
+            <a asp-controller="Venta" asp-action="AddCarrito" asp-route-id="@Model.JuegoId" class="btn btn-block btn-light text-dark  disabled">Añadir al carrito</a>
+        }
+        else
+        {
+            <a asp-controller="Venta" asp-action="AddCarrito" asp-route-id="@Model.JuegoId" class="btn btn-block btn-light text-dark ">Añadir al carrito</a>   
+        }
+
+    </div>
+
+</div>

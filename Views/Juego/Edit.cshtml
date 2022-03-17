@@ -1,0 +1,37 @@
+﻿@using JavierSanchezProyectoCore.ViewModels
+@model EditJuegoViewModel
+<form class="form-group" asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" asp-for="JuegoId" />
+    <div asp-validation-summary="All"></div>
+    <label class="form-label" asp-for="Titulo"></label>
+    <input class="form-control" asp-for="Titulo" />
+    <span class="text-red" asp-validation-for="Titulo"></span>
+    <br />
+    <label class="form-label" asp-for="Descripcion"></label>
+    <input class="form-control" asp-for="Descripcion" textarea />
+    <span class="text-red" asp-validation-for="Descripcion"></span>
+    <br />
+    <label class="form-label" asp-for="Salida"></label>
+    <input class="form-control" asp-for="Salida" />
+    <span class="text-red" asp-validation-for="Salida"></span>
+    <br />
+    <label class="form-label" asp-for="Precio"></label>
+    <input class="form-control" asp-for="Precio" />
+    <span class="text-red" asp-validation-for="Precio"></span>
+    <br />
+    <label class="form-label" asp-for="Caratula"></label>
+    <input class="form-control" asp-for="Caratula" accept="image/*" />
+    <span class="text-red" asp-validation-for="Caratula"></span>
+    <br />
+    <label class="form-label" asp-for="TrailerURL"></label>
+    <input class="form-control" asp-for="TrailerURL" />
+    <span class="text-red" asp-validation-for="TrailerURL"></span>
+    <br />
+    <label class="form-label" asp-for="Descuento"></label>
+    <input class="form-control" asp-for="Descuento" />
+    <span class="text-red" asp-validation-for="Descuento"></span>
+    <br />
+
+
+    <button class="btn btn-primary" type="submit">Actualizar</button>
+</form>

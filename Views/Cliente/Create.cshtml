@@ -1,0 +1,18 @@
+﻿@using JavierSanchezProyectoCore.Models
+@model Cliente
+<form asp-action="Create" class="form-group">
+    <div asp-validation-summary="All"></div>
+    <label class="form-label" asp-for="Nickname"></label>
+    <input class="form-control" asp-for="Nickname" />
+    <span class="text-red" asp-validation-for="Nickname"></span>
+    <br />
+    <label class="form-label" asp-for="Nombre"></label>
+    <input class="form-control" asp-for="Nombre" />
+    <span class="text-red" asp-validation-for="Nombre"></span>
+    <br />
+    <label class="form-label" asp-for="Apellidos"></label>
+    <input class="form-control" asp-for="Apellidos" />
+    <span class="text-red" asp-validation-for="Apellidos"></span>
+    <br />
+    <button class="btn btn-primary" type="submit">Guardar</button>
+</form>

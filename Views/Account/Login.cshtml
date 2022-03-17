@@ -1,0 +1,16 @@
+﻿@using Identity.School.App.ViewModels
+@model AccountLoginViewModel
+
+<h2>User Login</h2>
+<form asp-action="Login" asp-controller="Account" method="post" class="form-group">
+    <div asp-validation-summary="All"></div>
+    <label class="form-label" asp-for="Email"></label>
+    <input class="form-control" asp-for="Email" />
+    <span class="text-red" asp-validation-for="Email"></span>
+    <br />
+    <label class="form-label" asp-for="Password"></label>
+    <input class="form-control"asp-for="Password" />
+    <span class="text-red" asp-validation-for="Password"></span>
+    <br />
+    <button class="btn btn-primary" type="submit">Log In</button>
+</form>

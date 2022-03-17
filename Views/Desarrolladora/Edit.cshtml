@@ -1,0 +1,20 @@
+﻿@using JavierSanchezProyectoCore.ViewModels
+@model EditDesarrolladoraViewModel
+<form asp-action="Edit" class="form-group" enctype="multipart/form-data">
+    <input type="hidden" asp-for="DesarrolladoraId" />
+    <div asp-validation-summary="All"></div>
+    <label class="form-label" asp-for="Nombre"></label>
+    <input class="form-control" asp-for="Nombre" />
+    <span class="text-red" asp-validation-for="Nombre"></span>
+    <br />
+    <label class="form-control" asp-for="ImagenLogo"></label>
+    <input class="form-control" asp-for="ImagenLogo" accept="image/*" />
+    <span class="text-red" asp-validation-for="ImagenLogo"></span>
+    <br />
+    <label class="form-control" asp-for="Pagina"></label>
+    <input class="form-control" asp-for="Pagina" />
+    <span class="text-red" asp-validation-for="Pagina"></span>
+    <br />
+
+    <button class="btn btn-primary" type="submit">Actualizar</button>
+</form>

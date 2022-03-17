@@ -1,0 +1,135 @@
+﻿@using JavierSanchezProyectoCore.ViewModels
+@model IndexJuegosViewModel
+
+
+@section style{
+    <style>
+        .ocultar-elemento-active {
+            transition: all 1s ease-in-out;
+            opacity: 0;
+        }
+
+        .ocultar-elemento-inactive {
+            transition: all 1s ease-in-out;
+            opacity: 1;
+        }
+    </style>
+}
+
+@section script{
+    <script>
+        $(document).ready(function () {
+            $(".cartaAnimada").mouseover(function () {
+
+                $(this).children().addClass("ocultar-elemento-inactive")
+                $(this).children().removeClass("ocultar-elemento-active")
+            });
+
+            $(".cartaAnimada").mouseout(function () {
+
+                $(this).children().addClass("ocultar-elemento-active")
+                $(this).children().removeClass("ocultar-elemento-inactive")
+
+            });
+        });
+    </script>
+
+}
+
+@{
+
+
+    if (Model.Juegos.Count() < 1)
+    {
+        <p>No hay Juegos </p>
+    }
+    else
+    {
+         
+        <form method="post">
+            <div class="row justify-content-center">
+                
+
+                    <div class="form-floating my-2">
+                        <input type="hidden" asp-for="id"/>
+                        <label asp-for="filtroTitulo">Titulo</label>
+                        <input asp-for="filtroTitulo">
+                        <label asp-for="filtroGenero.Nombre">Genero</label>
+                        <select class="form-select" asp-for="filtroGenero.GeneroId" asp-items="@Model.GeneroList">
+                            <option value="0" selected>Todos</option>
+                        </select>
+                        <button type="submit" class="btn btn-light btn-sm">Filtrar</button>
+                    </div>
+
+                   
+
+                
+            </div>
+        </form>
+
+
+
+        <div class="row   justify-content-center mt-2">
+            @foreach (Juego juego in Model.Juegos)
+            {
+                <div class="col col-md-3">
+                    <div class="card bg-dark">
+                        @if (juego.Descuento != 0)
+                        {
+                            <span class="bg-danger  w-100 position-absolute">- @juego.Descuento %</span>
+                        }
+                        <img class="img-fluid " style="object-fit: cover;  "
+                             src="~/images/@juego.Caratula" alt="@juego.Titulo" />
+                        <div class="cartaAnimada card-img-overlay p-0  d-md-flex align-items-end">
+                            <div class="ocultar-elemento-active col-12 p-2 text-center"
+                                 style="background-color:rgb(0,0,0,0.5) ">
+                                <div class="card-body ">
+                                    <h5 class="card-title">@juego.Titulo</h5>
+                                    <p class="card-subtitle">
+                                        @foreach (GeneroJuego item in juego.GenerosJuego)
+                                        {
+                                            @if (item != juego.GenerosJuego.Last())
+                                            {
+                                                @item.Genero.Nombre @:,
+                                            }
+                                            else
+                                            {
+                                                @item.Genero.Nombre
+                                            }
+
+                                        }
+                                    </p> @if (juego.Descuento != 0)
+                                    {
+
+                                        <p class="card-body">
+                                            Precio :
+                                            @{
+                                                decimal? preciofinal = juego.Precio - (juego.Precio * juego.Descuento / 100);
+
+                                            }
+                                            @preciofinal.Value.ToString("0.00") €
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-body"> Precio : @juego.Precio €</p>
+                                    }
+
+                                    <a class="btn btn-light text-dark btn-sm" asp-area="" asp-controller="Venta"
+                                       asp-action="AddCarrito" asp-route-id="@juego.JuegoId">Añadir al Carrito</a>
+
+                                    <a class="btn btn-info btn-sm" asp-action="Details" asp-controller="Juego" asp-route-id="@juego.JuegoId">Detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            }
+        </div>
+    }
+}
+
